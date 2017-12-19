@@ -6,11 +6,16 @@
 
     <groupId>ivan.uskov</groupId>
     <artifactId>GetNetAddress</artifactId>
-    <version>1.0</version>
+    <version>1.8</version>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
             <version>RELEASE</version>
         </dependency>
     </dependencies>
