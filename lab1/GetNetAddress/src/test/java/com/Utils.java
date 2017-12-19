@@ -1,6 +1,7 @@
 package com;
 
 import org.junit.jupiter.api.function.Executable;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Utils {

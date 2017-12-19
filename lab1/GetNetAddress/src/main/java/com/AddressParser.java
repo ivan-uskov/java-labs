@@ -14,15 +14,13 @@ class AddressParser {
 
     Address parse(String addressString) {
         Matcher matcher = pattern.matcher(addressString);
-        if (!matcher.find())
-        {
-            throw new IllegalArgumentException("address doesn't match pattern: " + addressString);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException("Invalid address: " + addressString);
         }
 
         int[] bytes = new int[Address.LENGTH];
         String[] parts = addressString.split("\\.");
-        for (int i = 0; i < parts.length; ++i)
-        {
+        for (int i = 0; i < parts.length; ++i) {
             bytes[i] = Integer.parseUnsignedInt(parts[i]);
         }
         return new Address(bytes);
