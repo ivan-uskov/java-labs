@@ -1,0 +1,4 @@
+testFiles/empty
+testFiles/zero
+testFiles/1234
+testFiles/notExists

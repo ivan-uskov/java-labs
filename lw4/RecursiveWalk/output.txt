@@ -1,0 +1,4 @@
+50c5d2f - testFiles\zero
+81ee2b55 - testFiles\1234
+811c9dc5 - testFiles\empty
+invalid path - testFiles\notExists
