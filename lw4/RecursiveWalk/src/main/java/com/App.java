@@ -7,11 +7,6 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class App {
-    @FunctionalInterface
-    public interface Liner {
-        void accept(String t);
-    }
-
     public static void main(String[] args) {
         if (args.length != 2) {
             System.err.println("Expected arguments: <input file> <output file>");
@@ -19,8 +14,9 @@ public class App {
         }
 
         try {
+            Stream<String> stream = Files.lines(Paths.get(args[0]));
             FileSystemWalker walker = new FileSystemWalker();
-            forEachLine(args[0], walker::visit);
+            stream.forEach(walker::visit);
             walker.getVisitedFiles().forEach(App::processFile);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -33,15 +29,6 @@ public class App {
         FileWalker walker = new FileWalker(hasher::add);
         if (walker.walk(path)) {
             System.out.println(hasher.getHash() + " " + path.toString());
-        }
-    }
-
-    private static void forEachLine(String filePath, Liner liner) {
-        try {
-            Stream<String> stream = Files.lines(Paths.get(filePath));
-            stream.forEach(liner::accept);
-        } catch (IOException e) {
-            throw new RuntimeException("Read input file failed ");
         }
     }
 }

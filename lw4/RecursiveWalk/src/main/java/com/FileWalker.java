@@ -11,7 +11,7 @@ public class FileWalker {
         void visit(byte[] fragment, int fragmentSize);
     }
 
-    private static final int BUFFER_SIZE = 63 * 1024;
+    private static final int BUFFER_SIZE = 1024;
 
     private Visitor visitor;
 
