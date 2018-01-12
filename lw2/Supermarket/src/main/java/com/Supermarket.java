@@ -85,7 +85,7 @@ class Supermarket {
     }
 
     void giveCustomerRandomProduct(IProductSelector productSelector, Customer customer) {
-        RandomProductSelector.Choice c = productSelector.select(products);
+        IProductSelector.Choice c = productSelector.select(products);
         Product product = products.get(c.getProductId());
         Product part = product.split(c.getQuantity());
 

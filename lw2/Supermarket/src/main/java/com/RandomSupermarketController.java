@@ -31,7 +31,7 @@ public class RandomSupermarketController {
             if (randomAction == Action.GoToCashDesk && !customer.isBasketEmpty() || !supermarket.hasProducts()) {
                 supermarket.moveCustomerToCashDesk(randomCustomerId);
             } else if (randomAction == Action.TakeProduct) {
-                supermarket.giveCustomerRandomProduct(new RandomProductSelector(), customer);
+                supermarket.giveCustomerRandomProduct(new RandomProductSelector(customer.getType()), customer);
             }
         }
     }
