@@ -2,8 +2,6 @@ package com;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SupermarketTest {
@@ -15,6 +13,7 @@ class SupermarketTest {
         TestUtils.assertNotThrows(s::open);
         assertThrows(RuntimeException.class, s::open);
         TestUtils.assertNotThrows(s::close);
+        assertThrows(RuntimeException.class, s::close);
     }
 
     @Test

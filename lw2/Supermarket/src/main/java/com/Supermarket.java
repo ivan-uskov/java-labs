@@ -45,6 +45,7 @@ class Supermarket {
             throw new RuntimeException("State should be opened before supermarket closed");
         }
 
+        state = State.Closed;
         report.addNotSoldProducts(products);
         watcher.handleClosed(report);
     }
