@@ -4,11 +4,15 @@ class Bill implements BillView {
     private String customer;
     private double price;
     private Discount discount;
-    private PaymentMethod paymentMethod;
+    private PaymentMethod paymentMethod = PaymentMethod.Cash;
 
     Bill(String customerName, Discount d) {
         customer = customerName;
         discount = d;
+    }
+
+    Bill(String customerName) {
+        this(customerName, null);
     }
 
     @Override

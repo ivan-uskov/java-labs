@@ -11,11 +11,7 @@ public class Utils {
     }
 
     static void sleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException ex) {
-            // skip
-        }
+        try { Thread.sleep(millis); } catch (InterruptedException ex) { /* skip */ }
     }
 
     static PrintStream stringPrintStream() {

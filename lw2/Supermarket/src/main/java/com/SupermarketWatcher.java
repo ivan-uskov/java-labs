@@ -7,6 +7,10 @@ import java.util.ArrayList;
 class SupermarketWatcher {
     private PrintStream logStream;
 
+    SupermarketWatcher() {
+        this(Utils.stringPrintStream());
+    }
+
     SupermarketWatcher(PrintStream logStrm) {
         logStream = logStrm;
     }
@@ -17,7 +21,7 @@ class SupermarketWatcher {
 
     void handleClosed(SupermarketReport report) {
         logStream.println(prepareTimeMessage() + " supermarket closed");
-        logStream.println(prepareTimeMessage() + report.toString());
+        logStream.println(prepareTimeMessage() + " " + report.toString());
     }
 
     void handleNewProducts(ArrayList<Product> products) {

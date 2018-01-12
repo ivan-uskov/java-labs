@@ -1,6 +1,5 @@
 package com;
 
-import java.util.ArrayList;
 
 interface BillView {
     double getAmount();

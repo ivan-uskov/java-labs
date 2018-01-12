@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class SupermarketReport {
     private ArrayList<BillView> bills = new ArrayList<>();
-    private ArrayList<Product> notSoldProducts;
+    private ArrayList<Product> notSoldProducts = new ArrayList<>();
 
     void addNotSoldProducts(ArrayList<Product> products) {
         notSoldProducts = products;
@@ -28,7 +28,7 @@ public class SupermarketReport {
         return ps.toString();
     }
 
-    private double getFullAmount() {
+    double getFullAmount() {
         return bills.stream().mapToDouble(BillView::getAmount).sum();
     }
 }

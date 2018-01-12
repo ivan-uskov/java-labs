@@ -17,6 +17,10 @@ public class Customer {
         type = customerType;
     }
 
+    Customer(String customerName) {
+        this(customerName, Type.Adult);
+    }
+
     String getName() {
         return name;
     }

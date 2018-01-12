@@ -7,7 +7,6 @@ import java.util.Queue;
 class Supermarket {
     private SupermarketWatcher watcher;
     private ProductSupplier productSupplier = new ProductSupplier();
-    private CustomerProvider customerProvider = new CustomerProvider();
     private CashDesk cashDesk = new CashDesk(new Discount(Utils.random(10, 20)));
     private SupermarketReport report = new SupermarketReport();
 
@@ -15,16 +14,16 @@ class Supermarket {
     private ArrayList<Customer> activeCustomers = new ArrayList<>();
     private Queue<Customer> cashDeskQueue = new LinkedList<>();
 
-    private enum Action {
-        TakeProduct,
-        AcceptCustomer,
-        GoToCashDesk,
-        ProcessCashDesk
+    private enum State {
+        Opened,
+        Closed
     }
 
-    private Action[] availableActions = Action.values();
+    private State state = State.Closed;
 
-    private final int SLEEP_TIME = 300;
+    Supermarket() {
+        this(new SupermarketWatcher());
+    }
 
     Supermarket(SupermarketWatcher w) {
         watcher = w;
@@ -32,48 +31,45 @@ class Supermarket {
         updateProducts();
     }
 
-    void work(int times) {
-        open();
-        while (times-- >= 0) {
-            doAction();
-            Utils.sleep(SLEEP_TIME);
+    void open() {
+        if (state != State.Closed) {
+            throw new RuntimeException("State should be closed before supermarket open");
         }
-        close();
-    }
 
-    private void updateProducts() {
-        products = productSupplier.getProducts();
-        watcher.handleNewProducts(products);
-    }
-
-    private void open() {
+        state = State.Opened;
         watcher.handleOpened();
     }
 
-    private void close() {
-        report.addNotSoldProducts(this.products);
+    void close() {
+        if (state != State.Opened) {
+            throw new RuntimeException("State should be opened before supermarket closed");
+        }
+
+        report.addNotSoldProducts(products);
         watcher.handleClosed(report);
     }
 
-    private void doAction() {
-        Action randomAction = getRandomAction();
-        if (randomAction == Action.AcceptCustomer || activeCustomers.size() == 0) {
-            addNewCustomer();
-        } else if (randomAction == Action.ProcessCashDesk && !cashDeskQueue.isEmpty()) {
-            processCashDesk();
-        } else {
-            int randomCustomerId = Utils.random(0, activeCustomers.size());
-            Customer customer = activeCustomers.get(randomCustomerId);
-
-            if (randomAction == Action.GoToCashDesk && !customer.isBasketEmpty()) {
-                moveCustomerToCashDesk(randomCustomerId, customer);
-            } else if (randomAction == Action.TakeProduct) {
-                giveCustomerRandomProduct(customer);
-            }
-        }
+    boolean hasActiveCustomers() {
+        return !activeCustomers.isEmpty();
     }
 
-    private void processCashDesk() {
+    boolean hasCustomersOnCashDesk() {
+        return !cashDeskQueue.isEmpty();
+    }
+
+    boolean hasProducts() {
+        return !products.isEmpty();
+    }
+
+    int activeCustomersCount() {
+        return activeCustomers.size();
+    }
+
+    Customer getActiveCustomer(int i) throws IndexOutOfBoundsException {
+        return activeCustomers.get(i);
+    }
+
+    void processCashDesk() {
         Customer customer = cashDeskQueue.poll();
         if (customer != null) {
             BillView bill = cashDesk.acceptCustomer(customer);
@@ -82,36 +78,33 @@ class Supermarket {
         }
     }
 
-    private Action getRandomAction() {
-        return availableActions[Utils.random(0, availableActions.length)];
+    void addCustomer(Customer customer) {
+        activeCustomers.add(customer);
+        watcher.handleNewCustomer(customer);
     }
 
-    private void addNewCustomer() {
-        Customer newCustomer = customerProvider.get();
-        activeCustomers.add(newCustomer);
-        watcher.handleNewCustomer(newCustomer);
-    }
+    void giveCustomerRandomProduct(IProductSelector productSelector, Customer customer) {
+        RandomProductSelector.Choice c = productSelector.select(products);
+        Product product = products.get(c.getProductId());
+        Product part = product.split(c.getQuantity());
 
-    private void giveCustomerRandomProduct(Customer customer) {
-        int randomProductId = Utils.random(0, products.size());
-        Product product = products.get(randomProductId);
-        int randomQuantity = Utils.random(1, product.getQuantity() + 1);
-
-        int newQuantity = product.getQuantity() - randomQuantity;
-        if (newQuantity > 0) {
-            products.set(randomProductId, new Product(product.getName(), product.getPrice(), newQuantity));
-        } else {
-            products.remove(randomProductId);
+        if (product.empty()) {
+            products.remove(c.getProductId());
         }
 
-        Product customerProduct = new Product(product.getName(), product.getPrice(), randomQuantity);
-        customer.addProduct(customerProduct);
-        watcher.handleCustomerPickedProduct(customer, customerProduct);
+        customer.addProduct(part);
+        watcher.handleCustomerPickedProduct(customer, part);
     }
 
-    private void moveCustomerToCashDesk(int customerId, Customer customer) {
+    void moveCustomerToCashDesk(int customerId) {
+        Customer customer = getActiveCustomer(customerId);
         activeCustomers.remove(customerId);
         cashDeskQueue.add(customer);
         watcher.handleCustomerGoToCashDesk(customer);
+    }
+
+    private void updateProducts() {
+        products = productSupplier.getProducts();
+        watcher.handleNewProducts(products);
     }
 }
