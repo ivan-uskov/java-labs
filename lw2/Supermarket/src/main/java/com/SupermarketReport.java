@@ -3,8 +3,8 @@ package com;
 import java.io.*;
 import java.util.ArrayList;
 
-public class SupermarketReport {
-    private ArrayList<BillView> bills = new ArrayList<>();
+class SupermarketReport {
+    private final ArrayList<BillView> bills = new ArrayList<>();
     private ArrayList<Product> notSoldProducts = new ArrayList<>();
 
     void addNotSoldProducts(ArrayList<Product> products) {

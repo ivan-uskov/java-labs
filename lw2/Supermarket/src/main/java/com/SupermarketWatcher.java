@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 class SupermarketWatcher {
-    private PrintStream logStream;
+    private final PrintStream logStream;
 
     SupermarketWatcher() {
         this(Utils.stringPrintStream());

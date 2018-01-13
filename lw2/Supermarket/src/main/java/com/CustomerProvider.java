@@ -2,9 +2,9 @@ package com;
 
 import com.Customer.Type;
 
-public class CustomerProvider {
-    private String[] availableNames = new String[]{"John", "Bob", "Carl", "Nick"};
-    private Type[] availableTypes = new Type[]{Type.Child, Type.Adult, Type.Retired};
+class CustomerProvider {
+    private final String[] availableNames = new String[]{"John", "Bob", "Carl", "Nick"};
+    private final Type[] availableTypes = new Type[]{Type.Child, Type.Adult, Type.Retired};
 
     Customer get() {
         return new Customer(getRandomName(), getRandomType());

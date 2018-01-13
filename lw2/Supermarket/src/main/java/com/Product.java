@@ -1,10 +1,10 @@
 package com;
 
 public class Product {
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
     private int quantity;
-    private Category category;
+    private final Category category;
 
     public enum Category {
         AdultsOnly, ForAll

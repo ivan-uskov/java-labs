@@ -1,7 +1,7 @@
 package com;
 
 class CashDesk {
-    private Discount discount;
+    private final Discount discount;
     private PaymentMethod[] availablePaymentMethods = PaymentMethod.values();
 
     CashDesk(Discount retiredCustomersDiscount) {

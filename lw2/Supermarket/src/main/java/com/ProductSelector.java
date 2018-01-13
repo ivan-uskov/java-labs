@@ -2,10 +2,10 @@ package com;
 
 import java.util.ArrayList;
 
-public interface IProductSelector {
+public interface ProductSelector {
     class Choice {
-        private int productId;
-        private int quantity;
+        private final int productId;
+        private final int quantity;
 
         Choice(int id, int size) {
             this.productId = id;

@@ -1,6 +1,6 @@
 package com;
 
-public class Discount {
+class Discount {
     private int size;
 
     Discount(int discountSize) {

@@ -1,6 +1,6 @@
 package com;
 
-public class App {
+class App {
     private static final int STEPS = 20;
     private static final int SLEEP_TIME = 300;
 

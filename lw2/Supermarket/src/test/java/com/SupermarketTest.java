@@ -56,7 +56,7 @@ class SupermarketTest {
         s.addCustomer((new CustomerProvider()).get());
 
         for (Product p : (new ProductSupplier()).getProducts()) {
-            s.giveCustomerRandomProduct(products -> new IProductSelector.Choice(0, p.getQuantity()), s.getActiveCustomer(0));
+            s.giveCustomerRandomProduct(products -> new ProductSelector.Choice(0, p.getQuantity()), s.getActiveCustomer(0));
         }
 
         assertFalse(s.hasProducts());

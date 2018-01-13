@@ -2,7 +2,7 @@ package com;
 
 import java.util.ArrayList;
 
-class RandomProductSelector implements IProductSelector {
+class RandomProductSelector implements ProductSelector {
     private final Customer.Type customerType;
 
     RandomProductSelector() {
@@ -29,7 +29,7 @@ class RandomProductSelector implements IProductSelector {
     }
 
     @FunctionalInterface
-    public interface FilterIntPredicate {
+    interface FilterIntPredicate {
         boolean execute(int t);
     }
 

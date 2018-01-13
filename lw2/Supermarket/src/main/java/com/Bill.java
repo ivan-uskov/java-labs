@@ -1,9 +1,9 @@
 package com;
 
 class Bill implements BillView {
-    private String customer;
+    private final String customer;
     private double price;
-    private Discount discount;
+    private final Discount discount;
     private PaymentMethod paymentMethod = PaymentMethod.Cash;
 
     Bill(String customerName, Discount d) {

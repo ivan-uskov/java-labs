@@ -12,7 +12,7 @@ class RandomProductSelectorTest {
         ArrayList<Product> products = (new ProductSupplier()).getProducts();
         while(!products.isEmpty()) {
             RandomProductSelector s = new RandomProductSelector();
-            IProductSelector.Choice c = s.select(products);
+            ProductSelector.Choice c = s.select(products);
 
             final Product[] p = new Product[]{null, null};
             TestUtils.assertNotThrows(() -> p[0] = products.get(c.getProductId()));

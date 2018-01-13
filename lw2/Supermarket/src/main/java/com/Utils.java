@@ -3,12 +3,9 @@ package com;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
-public class Utils {
+class Utils {
     static int[] range(int from, int to) {
         int[] range = new int[to - from];
         for (int i = from; i < to; ++i) {

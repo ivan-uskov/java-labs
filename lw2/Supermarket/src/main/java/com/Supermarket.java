@@ -5,14 +5,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class Supermarket {
-    private SupermarketWatcher watcher;
-    private ProductSupplier productSupplier = new ProductSupplier();
-    private CashDesk cashDesk = new CashDesk(new Discount(Utils.random(10, 20)));
-    private SupermarketReport report = new SupermarketReport();
+    private final SupermarketWatcher watcher;
+    private final ProductSupplier productSupplier = new ProductSupplier();
+    private final CashDesk cashDesk = new CashDesk(new Discount(Utils.random(10, 20)));
+    private final SupermarketReport report = new SupermarketReport();
 
     private ArrayList<Product> products;
-    private ArrayList<Customer> activeCustomers = new ArrayList<>();
-    private Queue<Customer> cashDeskQueue = new LinkedList<>();
+    private final ArrayList<Customer> activeCustomers = new ArrayList<>();
+    private final Queue<Customer> cashDeskQueue = new LinkedList<>();
 
     private enum State {
         Opened,
@@ -84,8 +84,8 @@ class Supermarket {
         watcher.handleNewCustomer(customer);
     }
 
-    void giveCustomerRandomProduct(IProductSelector productSelector, Customer customer) {
-        IProductSelector.Choice c = productSelector.select(products);
+    void giveCustomerRandomProduct(ProductSelector productSelector, Customer customer) {
+        ProductSelector.Choice c = productSelector.select(products);
         Product product = products.get(c.getProductId());
         Product part = product.split(c.getQuantity());
 

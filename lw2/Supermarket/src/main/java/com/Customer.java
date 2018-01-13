@@ -7,10 +7,10 @@ public class Customer {
         Child, Adult, Retired
     }
 
-    private String name;
-    private Type type;
+    private final String name;
+    private final Type type;
 
-    private ArrayList<Product> products = new ArrayList<>();
+    private final ArrayList<Product> products = new ArrayList<>();
 
     Customer(String customerName, Type customerType) {
         name = customerName;
